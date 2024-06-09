@@ -1,16 +1,14 @@
-from pysteamcmdwrapper import SteamCMD
 from bs4 import BeautifulSoup
-import re, os, sys
+import re, os, sys, pysteamcmd
 
 with open('mods.html') as f:
 	read_data = f.read()
 
-steam = SteamCMD("C:/steamcmd/")
-steam.login("anonymous", "")
-
-MOD_DIR = "C:/ArmA 3/Arma 3 Server"
+MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
 soup = BeautifulSoup(read_data, 'html.parser')
+
+steam = pysteamcmd.Steamcmd("C:/ArmA 3/ArmA 3 Server/")
 
 for itemL in soup.find_all('a'):
 	for modName in soup.find_all(attrs={"data-type" : "DisplayName"}):
@@ -19,5 +17,5 @@ for itemL in soup.find_all('a'):
 	for link in soup.find_all('a'):
 		mod = re.split(r"=", link.get('href'))[1]
 
-		steam.workshop_update(107410,mod, MOD_DIR, validate = True)
-		os.rename(mods, editedModName)
+	steamcmd.install_workshopfiles(107410, mod, MOD_DIR, user='anonymous' password=None)
+	os.rename(MOD_DIR + mod, MOD_DIR + "@" + editedModName)
