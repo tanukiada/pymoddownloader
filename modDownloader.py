@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import re, os, sys, pysteamcmd
+import re, os, sys
 
 with open('mods.html') as f:
 	read_data = f.read()
@@ -17,5 +17,5 @@ for itemL in soup.find_all('a'):
 	for link in soup.find_all('a'):
 		mod = re.split(r"=", link.get('href'))[1]
 
-	steamcmd.install_workshopfiles(107410, mod, MOD_DIR, user='anonymous' password=None)
+	os.system("C:/steamcmd/steamcmd.exe +force_install_dir C:/ArmA 3/Arma 3 Server +login anonymous +workshop_download_item 107410 {mod}")
 	os.rename(MOD_DIR + mod, MOD_DIR + "@" + editedModName)
