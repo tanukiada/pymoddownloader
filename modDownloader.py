@@ -8,7 +8,7 @@ with open('mods.html') as f:
 steam = SteamCMD("C:/steamcmd/")
 steam.login("anonymous")
 
-modsWithNames = {}
+MOD_DIR = "C:/ArmA 3/Arma 3 Server"
 
 soup = BeautifulSoup(read_data, 'html.parser')
 
@@ -18,4 +18,6 @@ for itemL in soup.find_all('a'):
 
 	for link in soup.find_all('a'):
 		mods = re.split(r"=", link.get('href'))[1]
-	
+
+	steam.workshop_update(107410,mods[itemL], MOD_DIR, validate = True)
+	os.rename(mods, editedModName)
