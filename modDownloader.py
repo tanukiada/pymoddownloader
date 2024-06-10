@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import re, os, sys
+import re, os, subprocess
 
 with open('mods.html') as f:
 	read_data = f.read()
@@ -24,5 +24,5 @@ for link in soup.find_all('a'):
 modDict = {key: value for key, value in zip(modListName, modListID)}
 
 for item in modDict.items():
-	os.system(f'C:/steamcmd/steamcmd.exe +force_install_dir C:/ArmA 3/Arma 3 Server +login anonymous +workshop_download_item 107410 {item[1]} +quit')
+	subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir C:/ArmA 3/Arma 3 Server/ +login anonymous +workshop_download_item 107410 {item[1]} +quit')
 	os.rename(MOD_DIR + item[1], MOD_DIR + "@" + item[0])
