@@ -21,9 +21,8 @@ for link in soup.find_all('a'):
 	mod = re.split(r"=", link.get('href'))[1]
 	modListID.append(mod)
 
-for modKey in modListName:
-	modDict[modKey] = modListID
+modDict = {key: value for key, value in zip(modListName, modListID)}
 
-for key in modDict:
-	os.system(f'C:/steamcmd/steamcmd.exe +force_install_dir C:/ArmA 3/Arma 3 Server +login anonymous +workshop_download_item 107410 {modDict[key]} +quit')
-	os.rename(MOD_DIR + mod, MOD_DIR + "@" + editedModName)
+for item in modDict.items() 
+	os.system(f'C:/steamcmd/steamcmd.exe +force_install_dir C:/ArmA 3/Arma 3 Server +login anonymous +workshop_download_item 107410 {item[1]} +quit')
+	os.rename(MOD_DIR + item[1], MOD_DIR + "@" + item[0])
