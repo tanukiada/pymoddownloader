@@ -20,7 +20,7 @@ def ModDownloadAndRename(modId, modName):
 			subprocess.run(f'C:/steamcmd/steamcmd.exe +login {USER_NAME} {PASSWORD} +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
 			failCounter+=1
 			time.sleep(10)
-			if failCounter == 3:
+			if failCounter == 1:
 				failCounter = 0
 				with open('failed.txt', 'a') as f:
 					f.write(modName + " | " + modId + "\n")
