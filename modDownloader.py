@@ -1,15 +1,20 @@
 from bs4 import BeautifulSoup
-import re, os, subprocess
+import re, os, subprocess, time
 
 SOURCE_DIR = "C:/arma/steamapps/workshop/content/107410/"
 MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
 def ModDownloadAndRename(mod_id, mod_name):
+	failCounter = 0
 	if os.path.isdir(MOD_DIR + "@" + mod_name):
 		print("mod exists.. skipping")
 	else:
 		while not os.path.isdir(SOURCE_DIR + mod_id):
+			time.sleep(10)
 			subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
+			failCounter+=1
+			if failCounter != 5:
+				break
 		os.rename(SOURCE_DIR + mod_id, MOD_DIR + "@" + mod_name)
 		
 with open('mods.html') as f:
