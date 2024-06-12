@@ -8,7 +8,7 @@ MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 @retry(wait=wait_fixed(60))
 def ModDownloadAndRename(mod_id, mod_name):
 	if os.path.isdir(MOD_DIR + "@" + mod_name):
-		print("mod exists.. skipping"
+		print("mod exists.. skipping")
 	else:
 		os.rename(SOURCE_DIR + mod_id, MOD_DIR + "@" + mod_name)
 		try:
