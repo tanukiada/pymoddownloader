@@ -27,9 +27,7 @@ MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 # 			os.rename(SOURCE_DIR + modId, MOD_DIR + "@" + modName)
 
 def ModDownloadAndRename(modId, modName):
-	response = requests.post(f"https://api.steampowered.com/IPublishedFileService/Subscribe/v1/?key={API_KEY}&appid=107410&modid={modId}")
-	print(response.status_code)
-
+	response = requests.post(f"https://api.steampowered.com/IPublishedFileService/Subscribe/v1/?key={API_KEY}&appid=107410&modid={modId}&include_dependencies=true")
 
 with open('mods.html') as f:
 	read_data = f.read()
