@@ -8,7 +8,10 @@ MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 def ModDownloadAndRename(mod_id, mod_name):
 	try:
 		subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +workshop_download_item 107410 {item[1]} +quit')
-		os.rename(MOD_DIR + mod_id, MOD_DIR + "@" + mod_name)
+		if os.path.isfile(MOD_DIR + "@" + mod_name):
+			pass
+		else:
+			os.rename(MOD_DIR + mod_id, MOD_DIR + "@" + mod_name)
 		return 0
 	except Exception as e:
 		raise(e)
