@@ -13,8 +13,10 @@ def ModDownloadAndRename(modId, modName):
 			subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
 			failCounter+=1
 			time.sleep(10)
-			if failCounter == 5:
+			if failCounter == 3:
 				failCounter = 0
+				with open('failed.txt') as f:
+					write(modName + " | " + "modId\n")
 				break
 		if os.path.isdir(SOURCE_DIR + modId) and not os.path.isdir(MOD_DIR + "@" + modName):
 			os.rename(SOURCE_DIR + modId, MOD_DIR + "@" + modName)
