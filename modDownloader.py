@@ -1,21 +1,14 @@
 from bs4 import BeautifulSoup
 import re, os, subprocess
-from tenacity import retry, stop_after_attempt, wait_fixed
 
 MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
-@retry(wait=wait_fixed(60))
 def ModDownloadAndRename(mod_id, mod_name):
+	subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +workshop_download_item 107410 {item[1]} +quit')
 	try:
-		subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +workshop_download_item 107410 {item[1]} +quit')
-		if os.path.isfile(MOD_DIR + "@" + mod_name):
-			pass
-		else:
-			os.rename(MOD_DIR + mod_id, MOD_DIR + "@" + mod_name)
-		return 0
+		os.rename(MOD_DIR + mod_id, MOD_DIR + "@" + mod_name)
 	except Exception as e:
-		raise(e)
-
+		raise e
 with open('mods.html') as f:
 	read_data = f.read()
 
