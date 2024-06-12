@@ -6,7 +6,7 @@ load_dotenv()
 
 USER_NAME = os.getenv("USER_NAME")
 PASSWORD = os.getenv("PASSWORD")
-SOURCE_DIR = "C:/arma/steamapps/workshop/content/107410/"
+SOURCE_DIR = "C:/steamcmd/steamapps/workshop/content/107410/"
 MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
 
