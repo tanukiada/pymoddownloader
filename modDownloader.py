@@ -6,7 +6,7 @@ MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
 def ModDownloadAndRename(mod_id, mod_name):
 	subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +workshop_download_item 107410 {item[1]} +quit')
-	if os.path.isdir(MOD_DIR + "@" + "mod_name"):
+	if os.path.isdir(MOD_DIR + "@" + mod_name):
 		print("mod exists.. skipping")
 	else:
 		os.rename(SOURCE_DIR + mod_id, MOD_DIR + "@" + mod_name)
