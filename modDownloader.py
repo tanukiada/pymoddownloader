@@ -4,7 +4,8 @@ import re, os, subprocess, time, requests
 
 load_dotenv()
 
-API_KEY = os.getenv("API_KEY")
+USER_NAME = os.getenv("USER_NAME")
+PASSWORD = os.getnev("PASSWORD")
 SOURCE_DIR = "C:/arma/steamapps/workshop/content/107410/"
 MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
@@ -14,7 +15,7 @@ def ModDownloadAndRename(modId, modName):
 		print("mod exists.. skipping")
 	else:
 		while not os.path.isdir(SOURCE_DIR + modId or not os.path.isdir(MOD_DIR + "@" + modName)):
-			subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
+			subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login {USER_NAME} {PASSWORD} +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
 			failCounter+=1
 			time.sleep(10)
 			if failCounter == 3:
