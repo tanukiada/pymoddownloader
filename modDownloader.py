@@ -17,7 +17,7 @@ def ModDownloadAndRename(modId, modName):
 		print("mod exists.. skipping")
 	else:
 		while not os.path.isdir(SOURCE_DIR + modId or not os.path.isdir(MOD_DIR + "@" + modName)):
-			subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login {USER_NAME} {PASSWORD} +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
+			subprocess.run(f'C:/steamcmd/steamcmd.exe +login {USER_NAME} {PASSWORD} +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
 			failCounter+=1
 			time.sleep(10)
 			if failCounter == 3:
