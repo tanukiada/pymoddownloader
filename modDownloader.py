@@ -15,7 +15,7 @@ def ModDownloadAndRename(mod_id, mod_name):
 			time.sleep(10)
 			if failCounter == 5:
 				break
-			if os.path.isdir(SOURCE_DIR + mod_id and not MOD_DIR + "@" + mod_name):
+			if os.path.isdir(SOURCE_DIR + mod_id) and not os.path.isdir(MOD_DIR + "@" + mod_name):
 				os.rename(SOURCE_DIR + mod_id, MOD_DIR + "@" + mod_name)
 		
 with open('mods.html') as f:
