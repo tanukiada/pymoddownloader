@@ -13,9 +13,10 @@ def ModDownloadAndRename(mod_id, mod_name):
 			time.sleep(10)
 			subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
 			failCounter+=1
-			if failCounter != 5:
+			if failCounter == 5:
 				break
-		os.rename(SOURCE_DIR + mod_id, MOD_DIR + "@" + mod_name)
+			if(os.path.isdir(SOURCE_DIR + mod_id)):
+				os.rename(SOURCE_DIR + mod_id, MOD_DIR + "@" + mod_name)
 		
 with open('mods.html') as f:
 	read_data = f.read()
