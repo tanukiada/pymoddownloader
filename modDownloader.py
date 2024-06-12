@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 import re, os, subprocess, time, requests
 
 load_dotenv()
