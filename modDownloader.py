@@ -23,7 +23,7 @@ def ModDownloadAndRename(modId, modName):
 			if failCounter == 3:
 				failCounter = 0
 				with open('failed.txt', 'w') as f:
-					write(modName + " | " + "modId\n")
+					f.write(modName + " | " + "modId\n")
 				break
 		if os.path.isdir(SOURCE_DIR + modId) and not os.path.isdir(MOD_DIR + "@" + modName):
 			os.rename(SOURCE_DIR + modId, MOD_DIR + "@" + modName)
