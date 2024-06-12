@@ -4,7 +4,7 @@ import re, os, subprocess, time
 SOURCE_DIR = "C:/arma/steamapps/workshop/content/107410/"
 MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
-def ModDownloadAndRename(mod_id, mod_name):
+def ModDownloadAndRename(modId, modName):
 	failCounter = 0
 	if os.path.isdir(MOD_DIR + "@" + mod_name):
 		print("mod exists.. skipping")
@@ -18,7 +18,8 @@ def ModDownloadAndRename(mod_id, mod_name):
 				break
 		if os.path.isdir(SOURCE_DIR + mod_id) and not os.path.isdir(MOD_DIR + "@" + mod_name):
 			os.rename(SOURCE_DIR + mod_id, MOD_DIR + "@" + mod_name)
-		
+
+
 with open('mods.html') as f:
 	read_data = f.read()
 
