@@ -1,12 +1,13 @@
 from bs4 import BeautifulSoup
 import re, os, subprocess
 
+SOURCE_DIR = "C:/arma/steamapps/workshop/content/107410/"
 MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
 def ModDownloadAndRename(mod_id, mod_name):
 	subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +workshop_download_item 107410 {item[1]} +quit')
 	try:
-		os.rename(MOD_DIR + mod_id, MOD_DIR + "@" + mod_name)
+		os.rename(SOURCE_DIR + mod_id, MOD_DIR + "@" + mod_name)
 	except Exception as e:
 		raise e
 with open('mods.html') as f:
