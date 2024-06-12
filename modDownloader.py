@@ -7,14 +7,14 @@ MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
 @retry(wait=wait_fixed(60))
 def ModDownloadAndRename(mod_id, mod_name):
-	try:
-		subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +workshop_download_item 107410 {item[1]} +quit')
-		if os.path.isdir(MOD_DIR + "@" + mod_name):
-			print("mod exists.. skipping")
-		else:
-			os.rename(SOURCE_DIR + mod_id, MOD_DIR + "@" + mod_name)
-	except Exception as e:
-		raise(e)
+	if os.path.isdir(MOD_DIR + "@" + mod_name):
+		print("mod exists.. skipping"
+	else:
+		os.rename(SOURCE_DIR + mod_id, MOD_DIR + "@" + mod_name)
+		try:
+			subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +workshop_download_item 107410 {item[1]} +quit')
+		except Exception as e:
+			raise(e)
 		
 with open('mods.html') as f:
 	read_data = f.read()
