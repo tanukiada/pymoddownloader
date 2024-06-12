@@ -9,8 +9,6 @@ PASSWORD = os.getenv("PASSWORD")
 SOURCE_DIR = "C:/steamcmd/steamapps/workshop/content/107410/"
 MOD_DIR = "C:/ArmA 3/"
 
-
-
 def ModDownloadAndRename(modId, modName):
 	failCounter = 0
 	if os.path.isdir(MOD_DIR + "@" + modName):
@@ -27,11 +25,6 @@ def ModDownloadAndRename(modId, modName):
 				break
 		if os.path.isdir(SOURCE_DIR + modId) and not os.path.isdir(MOD_DIR + "@" + modName):
 			os.rename(SOURCE_DIR + modId, MOD_DIR + "@" + modName)
-
-
-# need to figure out
-# def ModDownloadAndRename(modId, modName):
-# 	response = requests.post(f"https://api.steampowered.com/IPublishedFileService/Subscribe/v1/?key={API_KEY}&appid=107410&modid={modId}&include_dependencies=true")
 
 with open('mods.html') as f:
 	read_data = f.read()
