@@ -1,25 +1,33 @@
 from bs4 import BeautifulSoup
-import re, os, subprocess, time
+import re, os, subprocess, time, requests
 
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
 SOURCE_DIR = "C:/arma/steamapps/workshop/content/107410/"
 MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
+# deprecated ?
+# def ModDownloadAndRename(modId, modName):
+# 	failCounter = 0
+# 	if os.path.isdir(MOD_DIR + "@" + modName):
+# 		print("mod exists.. skipping")
+# 	else:
+# 		while not os.path.isdir(SOURCE_DIR + modId or not os.path.isdir(MOD_DIR + "@" + modName)):
+# 			subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
+# 			failCounter+=1
+# 			time.sleep(10)
+# 			if failCounter == 3:
+# 				failCounter = 0
+# 				with open('failed.txt') as f:
+# 					write(modName + " | " + "modId\n")
+# 				break
+# 		if os.path.isdir(SOURCE_DIR + modId) and not os.path.isdir(MOD_DIR + "@" + modName):
+# 			os.rename(SOURCE_DIR + modId, MOD_DIR + "@" + modName)
+
 def ModDownloadAndRename(modId, modName):
-	failCounter = 0
-	if os.path.isdir(MOD_DIR + "@" + modName):
-		print("mod exists.. skipping")
-	else:
-		while not os.path.isdir(SOURCE_DIR + modId or not os.path.isdir(MOD_DIR + "@" + modName)):
-			subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir ../ArmA 3/Arma 3 Server/ +login anonymous +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
-			failCounter+=1
-			time.sleep(10)
-			if failCounter == 3:
-				failCounter = 0
-				with open('failed.txt') as f:
-					write(modName + " | " + "modId\n")
-				break
-		if os.path.isdir(SOURCE_DIR + modId) and not os.path.isdir(MOD_DIR + "@" + modName):
-			os.rename(SOURCE_DIR + modId, MOD_DIR + "@" + modName)
+	response = requests.post(f"https://api.steampowered.com/IPublishedFileService/Subscribe/v1/?key={API_KEY}&appid=107410&modid={modId}")
+	print(response.statusCode)
 
 
 with open('mods.html') as f:
