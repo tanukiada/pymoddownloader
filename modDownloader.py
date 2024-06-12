@@ -9,6 +9,8 @@ PASSWORD = os.getenv("PASSWORD")
 SOURCE_DIR = "C:/arma/steamapps/workshop/content/107410/"
 MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
+
+
 def ModDownloadAndRename(modId, modName):
 	failCounter = 0
 	if os.path.isdir(MOD_DIR + "@" + modName):
@@ -20,7 +22,7 @@ def ModDownloadAndRename(modId, modName):
 			time.sleep(10)
 			if failCounter == 3:
 				failCounter = 0
-				with open('failed.txt') as f:
+				with open('failed.txt', 'w') as f:
 					write(modName + " | " + "modId\n")
 				break
 		if os.path.isdir(SOURCE_DIR + modId) and not os.path.isdir(MOD_DIR + "@" + modName):
