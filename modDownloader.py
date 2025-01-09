@@ -1,10 +1,33 @@
 from bs4 import BeautifulSoup
-import re, os, subprocess
+from dotenv import load_dotenv
+import re, os, subprocess, time, requests
+
+load_dotenv()
+
+USER_NAME = os.getenv("USER_NAME")
+PASSWORD = os.getenv("PASSWORD")
+SOURCE_DIR = "C:/steamcmd/steamapps/workshop/content/107410/"
+MOD_DIR = "C:/ArmA3/"
+
+def ModDownloadAndRename(modId, modName):
+	failCounter = 0
+	if os.path.isdir(MOD_DIR + "@" + modName):
+		print("mod exists.. skipping")
+	else:
+		while not os.path.isdir(SOURCE_DIR + modId or not os.path.isdir(MOD_DIR + "@" + modName)):
+			subprocess.run(f'C:/steamcmd/steamcmd.exe +login {USER_NAME} {PASSWORD} +bVerifyAllDownloads 1 +workshop_download_item 107410 {item[1]} +quit')
+			failCounter+=1
+			time.sleep(10)
+			if failCounter == 1:
+				failCounter = 0
+				with open('failed.txt', 'a') as f:
+					f.write(modName + " | " + modId + "\n")
+				break
+		if os.path.isdir(SOURCE_DIR + modId) and not os.path.isdir(MOD_DIR + "@" + modName):
+			os.rename(SOURCE_DIR + modId, MOD_DIR + "@" + modName)
 
 with open('mods.html') as f:
 	read_data = f.read()
-
-MOD_DIR = "C:/ArmA 3/Arma 3 Server/"
 
 soup = BeautifulSoup(read_data, 'html.parser')
 
@@ -13,7 +36,7 @@ modListID = []
 modDict = {}
 
 for modName in soup.find_all(attrs={"data-type" : "DisplayName"}):
-	editedModName = re.sub(r"[=\s_+-\.,\[\]\(\)']", "", modName.string)
+	editedModName = re.sub(r"[=\s_+-\.,\[\]\:\(\)']", "", modName.string)
 	modListName.append(editedModName)
 
 
@@ -24,5 +47,6 @@ for link in soup.find_all('a'):
 modDict = {key: value for key, value in zip(modListName, modListID)}
 
 for item in modDict.items():
-	subprocess.run(f'C:/steamcmd/steamcmd.exe +force_install_dir C:/ArmA 3/Arma 3 Server/ +login anonymous +workshop_download_item 107410 {item[1]} +quit')
-	os.rename(MOD_DIR + item[1], MOD_DIR + "@" + item[0])
+	ModDownloadAndRename(item[1], item[0])
+	with open('modlist.txt', 'a') as f:
+		f.write(f'@{item[0]};')
