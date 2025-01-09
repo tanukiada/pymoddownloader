@@ -7,7 +7,7 @@ load_dotenv()
 USER_NAME = os.getenv("USER_NAME")
 PASSWORD = os.getenv("PASSWORD")
 SOURCE_DIR = "C:/steamcmd/steamapps/workshop/content/107410/"
-MOD_DIR = "C:/ArmA 3/"
+MOD_DIR = "C:/ArmA3/"
 
 def ModDownloadAndRename(modId, modName):
 	failCounter = 0
@@ -36,7 +36,7 @@ modListID = []
 modDict = {}
 
 for modName in soup.find_all(attrs={"data-type" : "DisplayName"}):
-	editedModName = re.sub(r"[=\s_+-\.,\[\]\(\)']", "", modName.string)
+	editedModName = re.sub(r"[=\s_+-\.,\[\]\:\(\)']", "", modName.string)
 	modListName.append(editedModName)
 
 
@@ -48,3 +48,5 @@ modDict = {key: value for key, value in zip(modListName, modListID)}
 
 for item in modDict.items():
 	ModDownloadAndRename(item[1], item[0])
+	with open('modlist.txt', 'a') as f:
+		f.write(f'@{item[0]};')
